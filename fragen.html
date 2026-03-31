@@ -18,9 +18,9 @@
   --muted: #7a7a90;
   --green: #6bffb8;
 }
-
+ 
 * { margin:0; padding:0; box-sizing:border-box; }
-
+ 
 body {
   background: var(--bg);
   font-family: 'Mulish', sans-serif;
@@ -30,7 +30,7 @@ body {
     radial-gradient(ellipse at 10% 0%, rgba(107,159,255,0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 90% 80%, rgba(255,107,107,0.07) 0%, transparent 50%);
 }
-
+ 
 .layout {
   display: grid;
   grid-template-columns: 1fr 280px;
@@ -41,12 +41,12 @@ body {
   gap: 2rem;
   min-height: 100vh;
 }
-
+ 
 /* Header */
 .header {
   grid-column: 1 / -1;
 }
-
+ 
 .header-eyebrow {
   font-size: 0.7rem;
   letter-spacing: 0.25em;
@@ -55,7 +55,7 @@ body {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-
+ 
 h1 {
   font-family: 'Syne', sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
@@ -67,16 +67,16 @@ h1 {
   background-clip: text;
   margin-bottom: 0.4rem;
 }
-
+ 
 .header-sub {
   color: var(--muted);
   font-size: 0.9rem;
   font-weight: 300;
 }
-
+ 
 /* Main column */
 .main-col { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
-
+ 
 /* Ask box */
 .ask-box {
   background: var(--surface);
@@ -84,7 +84,7 @@ h1 {
   border-radius: 16px;
   padding: 1.5rem;
 }
-
+ 
 .ask-box label {
   display: block;
   font-size: 0.75rem;
@@ -94,11 +94,11 @@ h1 {
   font-weight: 600;
   margin-bottom: 0.75rem;
 }
-
+ 
 .name-row {
   margin-bottom: 0.9rem;
 }
-
+ 
 .name-input {
   background: var(--surface2);
   border: 1px solid var(--border);
@@ -113,16 +113,16 @@ h1 {
   transition: border-color 0.2s;
   outline: none;
 }
-
+ 
 .name-input::placeholder { color: var(--muted); }
 .name-input:focus { border-color: var(--accent); }
-
+ 
 .ask-row {
   display: flex;
   gap: 0.75rem;
   align-items: flex-end;
 }
-
+ 
 .ask-input {
   flex: 1;
   background: var(--surface2);
@@ -138,10 +138,10 @@ h1 {
   transition: border-color 0.2s;
   outline: none;
 }
-
+ 
 .ask-input::placeholder { color: var(--muted); }
 .ask-input:focus { border-color: var(--blue); }
-
+ 
 .ask-btn {
   background: var(--blue);
   color: #0e0e12;
@@ -156,22 +156,22 @@ h1 {
   white-space: nowrap;
   align-self: flex-end;
 }
-
+ 
 .ask-btn:hover { background: #8ab5ff; transform: translateY(-1px); }
 .ask-btn:active { transform: translateY(0); }
-
+ 
 /* Feed */
 .feed { display: flex; flex-direction: column; gap: 1rem; }
-
+ 
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
   color: var(--muted);
   font-size: 0.9rem;
 }
-
+ 
 .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-
+ 
 /* Comment card */
 .comment-card {
   background: var(--surface);
@@ -180,19 +180,19 @@ h1 {
   padding: 1.2rem 1.4rem;
   animation: slideIn 0.3s ease;
 }
-
+ 
 @keyframes slideIn {
   from { opacity:0; transform: translateY(12px); }
   to   { opacity:1; transform: translateY(0); }
 }
-
+ 
 .comment-meta {
   display: flex;
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 0.7rem;
 }
-
+ 
 .avatar {
   width: 32px; height: 32px;
   border-radius: 50%;
@@ -201,11 +201,11 @@ h1 {
   font-weight: 700;
   flex-shrink: 0;
 }
-
+ 
 .meta-info { flex: 1; }
 .meta-name { font-size: 0.82rem; font-weight: 700; }
 .meta-time { font-size: 0.7rem; color: var(--muted); }
-
+ 
 .question-badge {
   font-size: 0.6rem;
   letter-spacing: 0.1em;
@@ -217,7 +217,7 @@ h1 {
   color: var(--blue);
   border: 1px solid rgba(107,159,255,0.3);
 }
-
+ 
 .comment-text {
   font-size: 0.95rem;
   line-height: 1.6;
@@ -225,13 +225,13 @@ h1 {
   margin-bottom: 0.9rem;
   font-weight: 400;
 }
-
+ 
 .comment-actions {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
-
+ 
 .action-btn {
   display: flex;
   align-items: center;
@@ -247,25 +247,25 @@ h1 {
   cursor: pointer;
   transition: all 0.2s;
 }
-
+ 
 .action-btn:hover { border-color: var(--accent); color: var(--accent); }
-
+ 
 .heart-btn.liked {
   background: var(--accent-glow);
   border-color: var(--accent);
   color: var(--accent);
 }
-
+ 
 .heart-btn.liked .heart-icon { animation: heartPop 0.3s ease; }
-
+ 
 @keyframes heartPop {
   0%   { transform: scale(1); }
   50%  { transform: scale(1.4); }
   100% { transform: scale(1); }
 }
-
+ 
 .reply-btn:hover { border-color: var(--blue); color: var(--blue); }
-
+ 
 /* Replies */
 .replies {
   margin-top: 0.9rem;
@@ -275,14 +275,14 @@ h1 {
   flex-direction: column;
   gap: 0.75rem;
 }
-
+ 
 .reply-card {
   display: flex;
   gap: 0.7rem;
   align-items: flex-start;
   animation: slideIn 0.2s ease;
 }
-
+ 
 .reply-avatar {
   width: 26px; height: 26px;
   border-radius: 50%;
@@ -292,29 +292,29 @@ h1 {
   flex-shrink: 0;
   margin-top: 2px;
 }
-
+ 
 .reply-body { flex: 1; }
-
+ 
 .reply-name {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--green);
   margin-bottom: 0.2rem;
 }
-
+ 
 .reply-text {
   font-size: 0.85rem;
   color: #c8c8d8;
   line-height: 1.5;
 }
-
+ 
 /* Reply input */
 .reply-input-row {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.75rem;
 }
-
+ 
 .reply-input {
   flex: 1;
   background: var(--surface2);
@@ -327,10 +327,10 @@ h1 {
   outline: none;
   transition: border-color 0.2s;
 }
-
+ 
 .reply-input::placeholder { color: var(--muted); }
 .reply-input:focus { border-color: var(--green); }
-
+ 
 .reply-send {
   background: var(--green);
   color: #0e0e12;
@@ -343,19 +343,19 @@ h1 {
   cursor: pointer;
   transition: background 0.2s;
 }
-
+ 
 .reply-send:hover { background: #8affcf; }
-
+ 
 /* Sidebar */
 .sidebar { display: flex; flex-direction: column; gap: 1rem; }
-
+ 
 .stat-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.3rem;
 }
-
+ 
 .stat-card-title {
   font-size: 0.68rem;
   letter-spacing: 0.18em;
@@ -364,7 +364,7 @@ h1 {
   font-weight: 600;
   margin-bottom: 1rem;
 }
-
+ 
 .stat-row {
   display: flex;
   align-items: center;
@@ -372,10 +372,10 @@ h1 {
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--border);
 }
-
+ 
 .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
 .stat-row:first-of-type { padding-top: 0; }
-
+ 
 .stat-label {
   display: flex;
   align-items: center;
@@ -384,13 +384,13 @@ h1 {
   color: var(--muted);
   font-weight: 400;
 }
-
+ 
 .stat-value {
   font-family: 'Syne', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
 }
-
+ 
 /* Top heart card */
 .top-card {
   background: var(--surface);
@@ -399,7 +399,7 @@ h1 {
   padding: 1.3rem;
   background-image: radial-gradient(ellipse at 100% 0%, rgba(255,107,107,0.08), transparent 60%);
 }
-
+ 
 .top-card-title {
   font-size: 0.68rem;
   letter-spacing: 0.18em;
@@ -411,7 +411,7 @@ h1 {
   align-items: center;
   gap: 0.4rem;
 }
-
+ 
 .top-message {
   font-size: 0.88rem;
   line-height: 1.6;
@@ -419,19 +419,19 @@ h1 {
   font-style: italic;
   margin-bottom: 0.6rem;
 }
-
+ 
 .top-hearts {
   font-size: 0.75rem;
   color: var(--accent);
   font-weight: 700;
 }
-
+ 
 .top-empty {
   font-size: 0.82rem;
   color: var(--muted);
   font-style: italic;
 }
-
+ 
 @media (max-width: 700px) {
   .layout { grid-template-columns: 1fr; }
   .sidebar { order: -1; }
@@ -441,13 +441,13 @@ h1 {
 </head>
 <body>
 <div class="layout">
-
+ 
   <div class="header">
     <p class="header-eyebrow">Community Board</p>
     <h1>Fragen &amp; Antworten</h1>
     <p class="header-sub">Stelle eine Frage, antworte anderen oder verteile ein Herz ❤️</p>
   </div>
-
+ 
   <div class="main-col">
     <div class="ask-box">
       <div class="name-row">
@@ -460,7 +460,7 @@ h1 {
         <button class="ask-btn" onclick="postQuestion()">Fragen →</button>
       </div>
     </div>
-
+ 
     <div class="feed" id="feed">
       <div class="empty-state" id="emptyState">
         <div class="empty-icon">💬</div>
@@ -468,7 +468,7 @@ h1 {
       </div>
     </div>
   </div>
-
+ 
   <aside class="sidebar">
     <div class="stat-card">
       <div class="stat-card-title">📊 Statistik</div>
@@ -485,27 +485,27 @@ h1 {
         <span class="stat-value" id="statHearts" style="color:var(--accent)">0</span>
       </div>
     </div>
-
+ 
     <div class="top-card">
       <div class="top-card-title">🏆 Beliebteste Nachricht</div>
       <div id="topMessage"><span class="top-empty">Noch keine Herzen vergeben.</span></div>
     </div>
   </aside>
-
+ 
 </div>
-
+ 
 <script>
 const API_KEY = '$2a$10$TXUqnwNhcvPxxqhlXk0I7.zgz5UnX326eyIpoay2PwgtPj.h0Gbt6';
 const BIN_ID  = '69cba5e0aaba882197ae8f1a';
 const BIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
-
+ 
 const avatarColors = ['#6b9fff','#ff6b6b','#6bffb8','#ffb86b','#c86bff','#ff6bda'];
 const avatarLetters = ['J','M','A','K','S','T','L','R','P','N'];
-
+ 
 let questions = [];
 let totalHearts = 0;
 let totalReplies = 0;
-
+ 
 // ── JSONBin helpers ──────────────────────────────────────
 async function loadData() {
   try {
@@ -521,7 +521,7 @@ async function loadData() {
     console.error('Laden fehlgeschlagen', e);
   }
 }
-
+ 
 async function saveData() {
   try {
     await fetch(BIN_URL, {
@@ -536,14 +536,14 @@ async function saveData() {
     console.error('Speichern fehlgeschlagen', e);
   }
 }
-
+ 
 async function init() {
   document.getElementById('feed').innerHTML = '<div class="empty-state"><div class="empty-icon">⏳</div><div>Fragen werden geladen...</div></div>';
   await loadData();
   renderAll();
   updateStats();
 }
-
+ 
 function renderAll() {
   const feed = document.getElementById('feed');
   feed.innerHTML = '';
@@ -553,29 +553,29 @@ function renderAll() {
   }
   questions.forEach(q => renderQuestion(q, false));
 }
-
+ 
 function randomAvatar() {
   const color = avatarColors[Math.floor(Math.random() * avatarColors.length)];
   const letter = avatarLetters[Math.floor(Math.random() * avatarLetters.length)];
   return { color, letter };
 }
-
+ 
 function timeAgo() {
   return 'gerade eben';
 }
-
+ 
 function updateStats() {
   document.getElementById('statQuestions').textContent = questions.length;
   document.getElementById('statReplies').textContent = totalReplies;
   document.getElementById('statHearts').textContent = totalHearts;
-
+ 
   // Top message
   const allItems = [];
   questions.forEach(q => {
     allItems.push({ text: q.text, hearts: q.hearts });
     q.replies.forEach(r => allItems.push({ text: r.text, hearts: 0 }));
   });
-
+ 
   const top = questions.slice().sort((a,b) => b.hearts - a.hearts)[0];
   const topEl = document.getElementById('topMessage');
   if (top && top.hearts > 0) {
@@ -584,14 +584,14 @@ function updateStats() {
     topEl.innerHTML = '<span class="top-empty">Noch keine Herzen vergeben.</span>';
   }
 }
-
+ 
 async function postQuestion() {
   const input = document.getElementById('questionInput');
   const nameInput = document.getElementById('nameInput');
   const text = input.value.trim();
   if (!text) return;
   const authorName = nameInput.value.trim() || 'Anonym';
-
+ 
   const av = randomAvatar();
   const q = {
     id: Date.now(),
@@ -603,56 +603,59 @@ async function postQuestion() {
     replies: [],
     showReplyInput: false
   };
-
+ 
   questions.unshift(q);
   input.value = '';
-
+ 
   const emptyState = document.getElementById('emptyState');
   if (emptyState) emptyState.remove();
-
+ 
   renderQuestion(q, true);
   updateStats();
   await saveData();
 }
-
+ 
 function renderQuestion(q, prepend = false) {
   const feed = document.getElementById('feed');
-
+ 
   const card = document.createElement('div');
   card.className = 'comment-card';
   card.id = `q-${q.id}`;
   card.innerHTML = buildCardHTML(q);
-
+ 
   if (prepend) {
     feed.insertBefore(card, feed.firstChild);
   } else {
     feed.appendChild(card);
   }
 }
-
+ 
 function buildCardHTML(q) {
   const repliesHTML = q.replies.map(r => `
     <div class="reply-card">
       <div class="reply-avatar" style="background:${r.avatar.color}22; color:${r.avatar.color}">${r.avatar.letter}</div>
       <div class="reply-body">
-        <div class="reply-name">Anonym</div>
+        <div class="reply-name">${r.author || 'Anonym'}</div>
         <div class="reply-text">${escHtml(r.text)}</div>
       </div>
     </div>
   `).join('');
-
+ 
   const repliesSection = (q.replies.length > 0 || q.showReplyInput) ? `
     <div class="replies">
       ${repliesHTML}
       ${q.showReplyInput ? `
-        <div class="reply-input-row">
-          <input class="reply-input" id="ri-${q.id}" placeholder="Deine Antwort..." onkeydown="if(event.key==='Enter')sendReply(${q.id})">
-          <button class="reply-send" onclick="sendReply(${q.id})">Senden</button>
+        <div class="reply-input-row" style="flex-direction:column; gap:0.5rem;">
+          <input class="reply-input" id="rn-${q.id}" placeholder="Dein Name (optional)" style="min-width:0;">
+          <div style="display:flex; gap:0.5rem;">
+            <input class="reply-input" id="ri-${q.id}" placeholder="Deine Antwort..." onkeydown="if(event.key==='Enter')sendReply(${q.id})" style="flex:1;">
+            <button class="reply-send" onclick="sendReply(${q.id})">Senden</button>
+          </div>
         </div>
       ` : ''}
     </div>
   ` : '';
-
+ 
   return `
     <div class="comment-meta">
       <div class="avatar" style="background:${q.avatar.color}22; color:${q.avatar.color}">${q.avatar.letter}</div>
@@ -674,12 +677,12 @@ function buildCardHTML(q) {
     ${repliesSection}
   `;
 }
-
+ 
 function refreshCard(q) {
   const card = document.getElementById(`q-${q.id}`);
   if (card) card.innerHTML = buildCardHTML(q);
 }
-
+ 
 async function toggleHeart(id) {
   const q = questions.find(x => x.id === id);
   if (!q) return;
@@ -696,7 +699,7 @@ async function toggleHeart(id) {
   updateStats();
   await saveData();
 }
-
+ 
 function toggleReplyInput(id) {
   const q = questions.find(x => x.id === id);
   if (!q) return;
@@ -709,27 +712,29 @@ function toggleReplyInput(id) {
     }, 50);
   }
 }
-
+ 
 async function sendReply(id) {
   const q = questions.find(x => x.id === id);
   if (!q) return;
   const inp = document.getElementById(`ri-${id}`);
+  const nameInp = document.getElementById(`rn-${id}`);
   if (!inp) return;
   const text = inp.value.trim();
   if (!text) return;
-
-  q.replies.push({ text, avatar: randomAvatar() });
+  const author = (nameInp && nameInp.value.trim()) ? nameInp.value.trim() : 'Anonym';
+ 
+  q.replies.push({ text, author, avatar: randomAvatar() });
   totalReplies++;
   q.showReplyInput = false;
   refreshCard(q);
   updateStats();
   await saveData();
 }
-
+ 
 function escHtml(str) {
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
+ 
 // Allow Enter to post question (Shift+Enter for newline)
 document.getElementById('questionInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter' && !e.shiftKey) {
@@ -737,7 +742,7 @@ document.getElementById('questionInput').addEventListener('keydown', function(e)
     postQuestion();
   }
 });
-
+ 
 // Start the app
 init();
 </script>
