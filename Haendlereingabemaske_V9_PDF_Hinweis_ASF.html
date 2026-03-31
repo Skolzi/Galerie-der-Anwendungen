@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marktbewerbung</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #f3f4f6 50%, #06b6d4 100%);
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .card-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        .card-title { font-size: 1.5rem; font-weight: 700; color: #667eea; margin-bottom: 0.5rem; }
+        .card-description { color: #6b7280; font-size: 0.95rem; line-height: 1.6; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; font-weight: 600; color: #374151; margin-bottom: 0.5rem; font-size: 0.95rem; }
+        .form-hint { display: block; font-weight: 400; color: #9ca3af; font-size: 0.82rem; margin-top: 0.15rem; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb;
+            border-radius: 8px; font-size: 1rem; transition: border-color 0.2s; font-family: inherit;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #667eea; }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        .checkbox-group { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; accent-color: #667eea; flex-shrink: 0; }
+        .checkbox-group label { cursor: pointer; user-select: none; }
+        .checkbox-inline-input {
+            padding: 0.3rem 0.6rem; border: 2px solid #e5e7eb; border-radius: 6px;
+            font-size: 0.9rem; font-family: inherit; width: 200px; transition: border-color 0.2s;
+        }
+        .checkbox-inline-input:focus { outline: none; border-color: #667eea; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+        @media (max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+        .section-title {
+            font-size: 1rem; font-weight: 700; color: #667eea;
+            margin-bottom: 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid #e5e7eb;
+        }
+        .alert-success {
+            background: #d1fae5; color: #065f46; border: 1px solid #10b981;
+            padding: 1rem; border-radius: 8px; margin-bottom: 1rem; display: none;
+        }
+        .btn-pdf {
+            width: 100%; padding: 1.1rem; font-size: 1.1rem; background: #667eea; color: white;
+            border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+            margin-top: 1rem; transition: background 0.2s;
+        }
+        .btn-pdf:hover { background: #5568d3; }
+        .btn-pdf-download {
+            width: 100%; padding: 1.1rem; font-size: 1.1rem; background: #06b6d4; color: white;
+            border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+            margin-top: 0.75rem; transition: background 0.2s;
+        }
+        .btn-pdf-download:hover { background: #0891b2; }
+        .required { color: #ef4444; }
+        .checkbox-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 1rem; }
+        @media (max-width: 600px) { .checkbox-columns { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div style="max-width: 1000px; margin: 0 auto 1.5rem auto; background: #fff8e1; border-left: 5px solid #f59e0b; border-radius: 8px; padding: 1.25rem 1.5rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 0.95rem; color: #374151; line-height: 1.6;">
+    <strong style="display: block; margin-bottom: 0.4rem; color: #b45309;">⚠️ Hinweis</strong>
+    Dieser Fragebogen ersetzt keine Bewerbung – er dient lediglich dazu, die nötigen Informationen geordnet zu sammeln. Das kommentarlose Zusenden dieses Fragebogens stellt keine Bewerbung dar. Bitte leiten Sie diesen Fragebogen nicht weiter. Vielen Dank für Ihr Verständnis.
+</div>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Bewerbungsformular f&#252;r Marktst&#228;nde</h2>
+            <p class="card-description">
+                Bitte f&#252;llen Sie alle Felder sorgf&#228;ltig aus. Pflichtfelder sind mit <span class="required">*</span> markiert.
+                Nach dem Ausf&#252;llen pr&#252;fen Sie Ihre Angaben und laden Sie mit dem Button ganz unten die PDF herunter.
+                Diese schicken Sie dann an <strong id="mailAnzeige"></strong>
+            </p>
+        </div>
+
+        <div id="successMessage" class="alert-success">
+            &#10003; Das Formular wurde ausgef&#252;llt. Sie k&#246;nnen es jetzt als PDF herunterladen.
+        </div>
+
+        <form id="applicationForm">
+
+            <!-- Allgemeine Angaben -->
+            <p class="section-title">Allgemeine Angaben</p>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="datum">Erstelldatum <span class="required">*</span></label>
+                    <input type="date" id="datum" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="standbezeichnung">Name des Standes <span class="required">*</span></label>
+                    <input type="text" id="standbezeichnung" class="form-input" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="standplatzwunsch">Standplatzwunsch</label>
+                <input type="text" id="standplatzwunsch" class="form-input" placeholder="z.B. bevorzugter Bereich, Ecke, N&#228;he zu &#8230;" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="bewerbungsart">Erstbewerbung oder Wiederholte Bewerbung <span class="required">*</span></label>
+                <select id="bewerbungsart" class="form-select" required>
+                    <option value="">Bitte w&#228;hlen</option>
+                    <option value="Erstbewerbung">Erstbewerbung</option>
+                    <option value="Wiederholte Bewerbung">Wiederholte Bewerbung</option>
+                </select>
+            </div>
+
+            <!-- Pers&#246;nliche Daten -->
+            <p class="section-title">Pers&#246;nliche Daten</p>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="name">Name <span class="required">*</span></label>
+                    <input type="text" id="name" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="vorname">Vorname <span class="required">*</span></label>
+                    <input type="text" id="vorname" class="form-input" required />
+                </div>
+            </div>
+
+            <!-- Adresse -->
+            <p class="section-title">Adresse</p>
+            <div class="grid-3">
+                <div class="form-group">
+                    <label class="form-label" for="strasse">Stra&#223;e <span class="required">*</span></label>
+                    <input type="text" id="strasse" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="hausnummer">Hausnummer <span class="required">*</span></label>
+                    <input type="text" id="hausnummer" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="adresszusatz">Adresszusatz</label>
+                    <input type="text" id="adresszusatz" class="form-input" />
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="postleitzahl">Postleitzahl <span class="required">*</span></label>
+                    <input type="text" id="postleitzahl" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="ort">Ort <span class="required">*</span></label>
+                    <input type="text" id="ort" class="form-input" required />
+                </div>
+            </div>
+
+            <!-- Kontaktdaten -->
+            <p class="section-title">Kontaktdaten</p>
+            <div class="grid-3">
+                <div class="form-group">
+                    <label class="form-label" for="telefon">Telefon <span class="required">*</span></label>
+                    <input type="tel" id="telefon" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="mobiltelefon">Mobiltelefon</label>
+                    <input type="tel" id="mobiltelefon" class="form-input" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">E-Mail <span class="required">*</span></label>
+                    <input type="email" id="email" class="form-input" required />
+                </div>
+            </div>
+
+            <!-- Unternehmensangaben -->
+            <p class="section-title">Unternehmensangaben</p>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="kleinunternehmen">
+                        Kleinunternehmen <span class="required">*</span>
+                        <span class="form-hint">(Einmal ausgestellte Standgenehmigungen/Rechnungen k&#246;nnen nicht korrigiert werden.)</span>
+                    </label>
+                    <select id="kleinunternehmen" class="form-select" required>
+                        <option value="">Bitte w&#228;hlen</option>
+                        <option value="Ja">Ja</option>
+                        <option value="Nein">Nein</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Sortiment & Angebot -->
+            <p class="section-title">Sortiment &amp; Angebot</p>
+            <div class="form-group">
+                <label class="form-label" for="sortimentsbeschreibung">Sortimentsbeschreibung <span class="required">*</span></label>
+                <textarea id="sortimentsbeschreibung" class="form-textarea" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="eigeneHerstellung">Eigene Herstellung <span class="required">*</span></label>
+                <select id="eigeneHerstellung" class="form-select" required>
+                    <option value="">Bitte w&#228;hlen</option>
+                    <option value="100%">100%</option>
+                    <option value="50%">50%</option>
+                    <option value="weniger als 50%">weniger als 50%</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="vorfuehrangebot">Vorf&#252;hrangebot <span class="required">*</span></label>
+                <select id="vorfuehrangebot" class="form-select" required>
+                    <option value="">Bitte w&#228;hlen</option>
+                    <option value="100%">100%</option>
+                    <option value="50%">50%</option>
+                    <option value="weniger als 50%">weniger als 50%</option>
+                </select>
+            </div>
+
+            <!-- Fragebogen -->
+            <p class="section-title">Fragebogen</p>
+            <div class="form-group">
+                <label class="form-label">Publikumsoffene Seiten <span class="required">*</span></label>
+                <div class="checkbox-columns">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="verkaufsseiteVorne" />
+                        <label for="verkaufsseiteVorne">Vorne</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="verkaufsseiteHinten" />
+                        <label for="verkaufsseiteHinten">Hinten</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="verkaufsseiteLinks" />
+                        <label for="verkaufsseiteLinks">Links</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="verkaufsseiteRechts" />
+                        <label for="verkaufsseiteRechts">Rechts</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stand & Technik -->
+            <p class="section-title">Stand &amp; Technik</p>
+            <div class="grid-3">
+                <div class="form-group">
+                    <label class="form-label" for="standLaenge">Stand L&#228;nge (m) <span class="required">*</span></label>
+                    <input type="number" step="0.01" id="standLaenge" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="standBreite">Stand Tiefe (m) <span class="required">*</span></label>
+                    <input type="number" step="0.01" id="standBreite" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="standHoehe">Maximale Standh&#246;he (m) <span class="required">*</span></label>
+                    <input type="number" step="0.01" id="standHoehe" class="form-input" required />
+                </div>
+            </div>
+
+            <!-- Zus&#228;tzliche Fl&#228;chen -->
+            <div class="form-group">
+                <label class="form-label">Zus&#228;tzliche Fl&#228;chen</label>
+                <div class="checkbox-columns">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="zusaetzlicheFlaecheKuehlung" />
+                        <label for="zusaetzlicheFlaecheKuehlung">K&#252;hlung</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="zusaetzlicheFlaecheLager" />
+                        <label for="zusaetzlicheFlaecheLager">Lager</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="zusaetzlicheFlaecheVorfuehrflaeche" />
+                        <label for="zusaetzlicheFlaecheVorfuehrflaeche">Vorf&#252;hrfl&#228;che</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="zusaetzlicheFlaecheVerkaufsflaeche" />
+                        <label for="zusaetzlicheFlaecheVerkaufsflaeche">Zus&#228;tzliche Verkaufsfl&#228;che</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="zusaetzlicheFlaecheAufenthaltsmobiliar" />
+                        <label for="zusaetzlicheFlaecheAufenthaltsmobiliar">Aufenthaltsmobiliar</label>
+                    </div>
+                </div>
+                <div class="grid-3" style="margin-top: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="zusatzLaenge">L&#228;nge (m)</label>
+                        <input type="number" step="0.01" id="zusatzLaenge" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="zusatzTiefe">Tiefe (m)</label>
+                        <input type="number" step="0.01" id="zusatzTiefe" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="zusatzHoehe">Maximale H&#246;he (m)</label>
+                        <input type="number" step="0.01" id="zusatzHoehe" class="form-input" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Art des Standes -->
+            <div class="form-group">
+                <label class="form-label">Art des Standes</label>
+                <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artDesStandesVerkaufsfahrzeug" />
+                        <label for="artDesStandesVerkaufsfahrzeug">Verkaufsfahrzeug</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artDesStandesVerkaufsanhaenger" />
+                        <label for="artDesStandesVerkaufsanhaenger">Verkaufsanh&#228;nger</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artDesStandesEigeneHuette" />
+                        <label for="artDesStandesEigeneHuette">Eigene H&#252;tte</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artDesStandesHuetteMiete" />
+                        <label for="artDesStandesHuetteMiete">H&#252;tte zur Miete</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artDesStandesPavillon" />
+                        <label for="artDesStandesPavillon">Pavillon</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="artDesStandesSonstiges" />
+                        <label for="artDesStandesSonstiges">Sonstiges:</label>
+                        <input type="text" id="artDesStandesSonstigesText" class="checkbox-inline-input" placeholder="Bitte beschreiben &#8230;" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strombedarf -->
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="strombedarf">Strombedarf <span class="required">*</span></label>
+                    <select id="strombedarf" class="form-select" required>
+                        <option value="">Bitte w&#228;hlen</option>
+                        <option value="kein Bedarf">kein Bedarf</option>
+                        <option value="Schuko/230V">Schuko/230V</option>
+                        <option value="16A CEE/400V">16A CEE/400V</option>
+                        <option value="32A CEE/400V">32A CEE/400V</option>
+                        <option value="63A CEE/400V">63A CEE/400V</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="strombedarfKw">Maximale Leistung in kW</label>
+                    <input type="number" step="0.01" id="strombedarfKw" class="form-input" />
+                </div>
+            </div>
+
+            <!-- Wasser / Gas -->
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="wasserAbwasser">Wasser/Abwasser <span class="required">*</span></label>
+                    <select id="wasserAbwasser" class="form-select" required>
+                        <option value="">Bitte w&#228;hlen</option>
+                        <option value="Kanisterversorgung">Kanisterversorgung</option>
+                        <option value="Anschluss">Anschluss</option>
+                        <option value="kein Bedarf">kein Bedarf</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="gas">Gas <span class="required">*</span></label>
+                    <select id="gas" class="form-select" required>
+                        <option value="">Bitte w&#228;hlen</option>
+                        <option value="Ja">Ja</option>
+                        <option value="Nein">Nein</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Logistik & Personal -->
+            <p class="section-title">Logistik &amp; Personal</p>
+            <div class="form-group">
+                <label class="form-label" for="anzahlMitarbeitende">
+                    Anzahl Mitarbeitende im Stand <span class="required">*</span>
+                    <span class="form-hint">(inklusive Standbetreiber)</span>
+                </label>
+                <input type="number" id="anzahlMitarbeitende" class="form-input" min="1" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="fahrzeugeInsgesamt">
+                    Anzahl Fahrzeuge insgesamt <span class="required">*</span>
+                    <span class="form-hint">(Parkgenehmigungen)</span>
+                </label>
+                <input type="number" id="fahrzeugeInsgesamt" class="form-input" min="0" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="fahrzeugBelieferung">
+                    Anzahl Fahrzeuge zur Belieferung <span class="required">*</span>
+                    <span class="form-hint">(Einfahrtgenehmigungen)</span>
+                </label>
+                <input type="number" id="fahrzeugBelieferung" class="form-input" min="0" required />
+            </div>
+
+            <!-- Buttons -->
+            <button type="button" class="btn-pdf" onclick="validateAndPreview()">
+                &#128203; Vorschau pr&#252;fen
+            </button>
+            <button type="button" class="btn-pdf-download" onclick="downloadPDF()">
+                &#11015; Als PDF herunterladen
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    // E-Mail sicher per JS einsetzen – kein Cloudflare-Filter greift auf JS-Strings
+    (function() {
+        var u = 'kultur';
+        var d = 'ilmenau.de';
+        var el = document.getElementById('mailAnzeige');
+        if (el) {
+            var a = document.createElement('a');
+            a.href = 'mailto:' + u + '@' + d;
+            a.textContent = u + '@' + d;
+            a.style.color = 'inherit';
+            el.appendChild(a);
+        }
+    })();
+
+    function validateAndPreview() {
+        var form = document.getElementById('applicationForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        var seiten = ['verkaufsseiteVorne','verkaufsseiteHinten','verkaufsseiteLinks','verkaufsseiteRechts'];
+        var eineGewaehlt = false;
+        for (var i = 0; i < seiten.length; i++) {
+            if (document.getElementById(seiten[i]).checked) { eineGewaehlt = true; break; }
+        }
+        if (!eineGewaehlt) {
+            alert('Bitte wählen Sie mindestens eine publikumsoffene Seite aus.');
+            return;
+        }
+        document.getElementById('successMessage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function getVal(id) {
+        var el = document.getElementById(id);
+        return el ? el.value.trim() : '';
+    }
+
+    function getCheckedList(checks) {
+        var result = [];
+        for (var i = 0; i < checks.length; i++) {
+            var c = checks[i];
+            var el = document.getElementById(c.id);
+            if (el && el.checked) {
+                if (c.extraId) {
+                    var extra = getVal(c.extraId);
+                    result.push(extra ? c.label + ' (' + extra + ')' : c.label);
+                } else {
+                    result.push(c.label);
+                }
+            }
+        }
+        return result.length > 0 ? result.join(', ') : 'keine';
+    }
+
+    function downloadPDF() {
+        var form = document.getElementById('applicationForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        var seiten = ['verkaufsseiteVorne','verkaufsseiteHinten','verkaufsseiteLinks','verkaufsseiteRechts'];
+        var eineGewaehlt = false;
+        for (var i = 0; i < seiten.length; i++) {
+            if (document.getElementById(seiten[i]).checked) { eineGewaehlt = true; break; }
+        }
+        if (!eineGewaehlt) {
+            alert('Bitte wählen Sie mindestens eine publikumsoffene Seite aus.');
+            return;
+        }
+
+        var jsPDF = window.jspdf.jsPDF;
+        var doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+        var pageW = 210;
+        var margin = 18;
+        var contentW = pageW - margin * 2;
+        var y = 20;
+        var lineH = 7;
+        var sectionGap = 4;
+
+        function checkPage(needed) {
+            if (y + (needed || 10) > 280) { doc.addPage(); y = 20; }
+        }
+
+        function drawPageHeader() {
+            doc.setFillColor(102, 126, 234);
+            doc.rect(0, 0, 210, 16, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(13);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Bewerbungsformular fuer Marktsstaende', margin, 11);
+            doc.setTextColor(0, 0, 0);
+            y = 24;
+        }
+
+        function sectionTitle(title) {
+            checkPage(14);
+            y += sectionGap;
+            doc.setFillColor(240, 242, 255);
+            doc.rect(margin, y - 4, contentW, 8, 'F');
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(80, 80, 200);
+            doc.text(title, margin + 2, y + 1);
+            doc.setTextColor(0, 0, 0);
+            y += 8;
+        }
+
+        function field(label, value) {
+            var val = value || '-';
+            checkPage(lineH + 4);
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'bold');
+            var labelLines = doc.splitTextToSize(label + ':', contentW);
+            doc.text(labelLines, margin, y);
+            var labelHeight = labelLines.length * 5;
+            doc.setFont('helvetica', 'normal');
+            if (labelLines.length === 1 && label.length < 30) {
+                var valLines = doc.splitTextToSize(val, contentW - 62);
+                doc.text(valLines, margin + 62, y);
+                y += lineH * Math.max(valLines.length, 1);
+            } else {
+                y += labelHeight;
+                var valLines = doc.splitTextToSize(val, contentW - 6);
+                doc.text(valLines, margin + 4, y);
+                y += lineH * Math.max(valLines.length, 1);
+            }
+        }
+
+        function fieldRow(pairs) {
+            var colW = contentW / pairs.length;
+            checkPage(lineH + 7);
+            for (var i = 0; i < pairs.length; i++) {
+                var p = pairs[i];
+                var x = margin + i * colW;
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'bold');
+                doc.text((p.label || '') + ':', x, y);
+                doc.setFont('helvetica', 'normal');
+                var lines = doc.splitTextToSize(p.value || '-', colW - 4);
+                doc.text(lines, x, y + 5);
+            }
+            y += lineH + 5;
+        }
+
+        // ---- PDF aufbauen ----
+        drawPageHeader();
+
+        sectionTitle('Allgemeine Angaben');
+        fieldRow([
+            { label: 'Erstelldatum', value: getVal('datum') },
+            { label: 'Name des Standes', value: getVal('standbezeichnung') }
+        ]);
+        field('Standplatzwunsch', getVal('standplatzwunsch'));
+        field('Bewerbungsart', getVal('bewerbungsart'));
+
+        sectionTitle('Persoenliche Daten');
+        fieldRow([
+            { label: 'Name', value: getVal('name') },
+            { label: 'Vorname', value: getVal('vorname') }
+        ]);
+
+        sectionTitle('Adresse');
+        fieldRow([
+            { label: 'Strasse', value: getVal('strasse') + ' ' + getVal('hausnummer') },
+            { label: 'Adresszusatz', value: getVal('adresszusatz') }
+        ]);
+        fieldRow([
+            { label: 'PLZ', value: getVal('postleitzahl') },
+            { label: 'Ort', value: getVal('ort') }
+        ]);
+
+        sectionTitle('Kontaktdaten');
+        fieldRow([
+            { label: 'Telefon', value: getVal('telefon') },
+            { label: 'Mobiltelefon', value: getVal('mobiltelefon') },
+            { label: 'E-Mail', value: getVal('email') }
+        ]);
+
+        sectionTitle('Unternehmensangaben');
+        field('Kleinunternehmen', getVal('kleinunternehmen'));
+
+        sectionTitle('Sortiment & Angebot');
+        field('Sortimentsbeschreibung', getVal('sortimentsbeschreibung'));
+        field('Eigene Herstellung', getVal('eigeneHerstellung'));
+        field('Vorfuehrangebot', getVal('vorfuehrangebot'));
+
+        sectionTitle('Fragebogen');
+        var pubSeiten = getCheckedList([
+            { id: 'verkaufsseiteVorne', label: 'Vorne' },
+            { id: 'verkaufsseiteHinten', label: 'Hinten' },
+            { id: 'verkaufsseiteLinks', label: 'Links' },
+            { id: 'verkaufsseiteRechts', label: 'Rechts' }
+        ]);
+        field('Publikumsoffene Seiten', pubSeiten);
+
+        sectionTitle('Stand & Technik');
+        fieldRow([
+            { label: 'Stand Laenge (m)', value: getVal('standLaenge') },
+            { label: 'Stand Tiefe (m)', value: getVal('standBreite') },
+            { label: 'Max. Standhoehe (m)', value: getVal('standHoehe') }
+        ]);
+
+        var zusatzFlaechen = getCheckedList([
+            { id: 'zusaetzlicheFlaecheKuehlung', label: 'Kuehlung' },
+            { id: 'zusaetzlicheFlaecheLager', label: 'Lager' },
+            { id: 'zusaetzlicheFlaecheVorfuehrflaeche', label: 'Vorfuehrflaeche' },
+            { id: 'zusaetzlicheFlaecheVerkaufsflaeche', label: 'Zusaetzl. Verkaufsflaeche' },
+            { id: 'zusaetzlicheFlaecheAufenthaltsmobiliar', label: 'Aufenthaltsmobiliar' }
+        ]);
+        field('Zusaetzliche Flaechen', zusatzFlaechen);
+        fieldRow([
+            { label: 'Laenge (m)', value: getVal('zusatzLaenge') },
+            { label: 'Tiefe (m)', value: getVal('zusatzTiefe') },
+            { label: 'Max. Hoehe (m)', value: getVal('zusatzHoehe') }
+        ]);
+
+        var artStand = getCheckedList([
+            { id: 'artDesStandesVerkaufsfahrzeug', label: 'Verkaufsfahrzeug' },
+            { id: 'artDesStandesVerkaufsanhaenger', label: 'Verkaufsanhaenger' },
+            { id: 'artDesStandesEigeneHuette', label: 'Eigene Huette' },
+            { id: 'artDesStandesHuetteMiete', label: 'Huette zur Miete' },
+            { id: 'artDesStandesPavillon', label: 'Pavillon' },
+            { id: 'artDesStandesSonstiges', label: 'Sonstiges', extraId: 'artDesStandesSonstigesText' }
+        ]);
+        field('Art des Standes', artStand);
+
+        fieldRow([
+            { label: 'Strombedarf', value: getVal('strombedarf') },
+            { label: 'Max. Leistung kW', value: getVal('strombedarfKw') }
+        ]);
+        fieldRow([
+            { label: 'Wasser/Abwasser', value: getVal('wasserAbwasser') },
+            { label: 'Gas', value: getVal('gas') }
+        ]);
+
+        sectionTitle('Logistik & Personal');
+        field('Mitarbeitende im Stand (inkl. Standbetreiber)', getVal('anzahlMitarbeitende'));
+        field('Fahrzeuge insgesamt (Parkgenehmigungen)', getVal('fahrzeugeInsgesamt'));
+        field('Fahrzeuge zur Belieferung (Einfahrtgenehmigungen)', getVal('fahrzeugBelieferung'));
+
+        // Footer
+        var totalPages = doc.getNumberOfPages();
+        for (var p = 1; p <= totalPages; p++) {
+            doc.setPage(p);
+            doc.setFontSize(8);
+            doc.setTextColor(150);
+            doc.text('Seite ' + p + ' von ' + totalPages, pageW - margin, 290, { align: 'right' });
+            doc.text('Marktbewerbung', margin, 290);
+        }
+
+        var name = getVal('name') || 'Bewerbung';
+        var vorname = getVal('vorname') || '';
+        var vollname = vorname ? vorname + ' ' + name : name;
+        var datumRaw = getVal('datum') || new Date().toISOString().split('T')[0];
+        // Format date from YYYY-MM-DD to DD.MM.YYYY
+        var datumTeile = datumRaw.split('-');
+        var datum = datumTeile.length === 3 ? datumTeile[2] + '.' + datumTeile[1] + '.' + datumTeile[0] : datumRaw;
+        doc.save('Marktbewerbung_Altstadtfest_' + vollname + '_' + datum + '.pdf');
+    }
+</script>
+</body>
+</html>
